@@ -1,0 +1,8 @@
+services:
+    odiseo_sylius_easy_post_plugin.event_listener.shipment_aware_listener:
+        class: Odiseo\SyliusEasyPostPlugin\Mapping\ShipmentAwareListener
+        arguments:
+            - '@sylius.resource_registry'
+            - '%sylius.model.shipment.class%'
+        tags:
+            - { name: doctrine.event_subscriber, connection: default, priority: 99 }
