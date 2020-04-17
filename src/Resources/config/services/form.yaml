@@ -1,0 +1,5 @@
+services:
+    odiseo_sylius_easy_post_plugin.form.type.easy_post_configuration:
+        class: Odiseo\SyliusEasyPostPlugin\Form\Type\Shipping\EasyPostConfigurationType
+        tags:
+            - { name: form.type }

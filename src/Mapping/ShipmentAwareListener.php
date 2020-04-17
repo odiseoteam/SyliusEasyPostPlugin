@@ -23,8 +23,7 @@ final class ShipmentAwareListener implements EventSubscriber
     public function __construct(
         RegistryInterface $resourceMetadataRegistry,
         string $itemClass
-    )
-    {
+    ) {
         $this->resourceMetadataRegistry = $resourceMetadataRegistry;
         $this->itemClass = $itemClass;
     }
@@ -40,7 +39,6 @@ final class ShipmentAwareListener implements EventSubscriber
     }
 
     /**
-     * @param LoadClassMetadataEventArgs $eventArgs
      * @throws MappingException
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
@@ -60,7 +58,6 @@ final class ShipmentAwareListener implements EventSubscriber
     }
 
     /**
-     * @param ClassMetadata $metadata
      * @throws MappingException
      */
     private function mapItemAware(ClassMetadata $metadata): void
@@ -69,21 +66,21 @@ final class ShipmentAwareListener implements EventSubscriber
             $metadata->mapField([
                 'fieldName' => 'postageLabelUrl',
                 'columnName' => 'postage_label_url',
-                'type' => 'boolean'
+                'type' => 'boolean',
             ]);
         }
         if (!$metadata->hasField('easyPostRates')) {
             $metadata->mapField([
                 'fieldName' => 'easyPostRates',
                 'columnName' => 'easy_post_rates',
-                'type' => 'string'
+                'type' => 'string',
             ]);
         }
         if (!$metadata->hasField('trackingUrl')) {
             $metadata->mapField([
                 'fieldName' => 'trackingUrl',
                 'columnName' => 'tracking_url',
-                'type' => 'string'
+                'type' => 'string',
             ]);
         }
     }
