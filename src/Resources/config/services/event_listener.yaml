@@ -1,4 +1,8 @@
 services:
+    odiseo_sylius_easy_post_plugin.event_listener.admin.menu_builder:
+        class: Odiseo\SyliusEasyPostPlugin\Menu\AdminMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
     odiseo_sylius_easy_post_plugin.event_listener.shipment_aware_listener:
         class: Odiseo\SyliusEasyPostPlugin\Mapping\ShipmentAwareListener
         arguments:
