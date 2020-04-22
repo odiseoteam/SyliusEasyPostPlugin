@@ -6,6 +6,7 @@ use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfiguration;
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Resource\Model\ResourceInterface;
+use Sylius\Component\Resource\Model\TimestampableInterface;
 
 class EasyPostConfigurationSpec extends ObjectBehavior
 {
@@ -17,6 +18,11 @@ class EasyPostConfigurationSpec extends ObjectBehavior
     public function it_implements_resource_interface(): void
     {
         $this->shouldImplement(ResourceInterface::class);
+    }
+
+    public function it_implements_timestampable_interface(): void
+    {
+        $this->shouldImplement(TimestampableInterface::class);
     }
 
     public function it_implements_easy_post_configuration_interface(): void
@@ -34,6 +40,8 @@ class EasyPostConfigurationSpec extends ObjectBehavior
 
     public function it_allows_access_via_properties(): void
     {
+        $this->setName('Configuration default');
+        $this->getName()->shouldReturn('Configuration default');
         $this->setApiKey('apiKey');
         $this->getApiKey()->shouldReturn('apiKey');
         $this->setStreet1('Street 1');

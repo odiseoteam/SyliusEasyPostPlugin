@@ -3,44 +3,49 @@
 namespace Odiseo\SyliusEasyPostPlugin\Entity;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
+use Sylius\Component\Resource\Model\TimestampableInterface;
 
-interface EasyPostConfigurationInterface extends ResourceInterface
+interface EasyPostConfigurationInterface extends ResourceInterface, TimestampableInterface
 {
-    public function setApiKey(string $apiKey): void;
+    public function setName(?string $name): void;
 
-    public function getApiKey(): string;
+    public function getName(): ?string;
 
-    public function setStreet1(string $street1): void;
+    public function setApiKey(?string $apiKey): void;
 
-    public function getStreet1(): string;
+    public function getApiKey(): ?string;
 
-    public function setStreet2(string $street2): void;
+    public function setStreet1(?string $street1): void;
 
-    public function getStreet2(): string;
+    public function getStreet1(): ?string;
 
-    public function setCity(string $city): void;
+    public function setStreet2(?string $street2): void;
 
-    public function getCity(): string;
+    public function getStreet2(): ?string;
 
-    public function setCountry(string $country): void;
+    public function setCity(?string $city): void;
 
-    public function getCountry(): string;
+    public function getCity(): ?string;
 
-    public function setState(string $state): void;
+    public function setCountry(?string $country): void;
 
-    public function getState(): string;
+    public function getCountry(): ?string;
 
-    public function setZip(string $zip): void;
+    public function setState(?string $state): void;
 
-    public function getZip(): string;
+    public function getState(): ?string;
 
-    public function setPhone(string $phone): void;
+    public function setZip(?string $zip): void;
 
-    public function getPhone(): string;
+    public function getZip(): ?string;
+
+    public function setPhone(?string $phone): void;
+
+    public function getPhone(): ?string;
 
     public function enable(): void;
 
     public function disable(): void;
 
-    public function isEnabled(): bool;
+    public function isEnabled(): ?bool;
 }

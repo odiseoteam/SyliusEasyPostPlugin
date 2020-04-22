@@ -5,4 +5,3 @@ sylius_resource:
             classes:
                 model: Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfiguration
                 interface: Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationInterface
-

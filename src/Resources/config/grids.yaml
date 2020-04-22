@@ -1,0 +1,2 @@
+imports:
+    - { resource: grids/easy_post_configuration.yaml }

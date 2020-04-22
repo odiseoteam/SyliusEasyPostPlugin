@@ -1,0 +1,11 @@
+odiseo_sylius_vendor_plugin:
+    ui:
+        vendors: Vendedores
+        edit_vendor: Editar vendedor
+        new_vendor: Nuevo vendedor
+        easy_post_configurations: Configuraciones de Easy Post
+    menu:
+        admin:
+            easy_post_configurations: Configuraciones de Easy Post
+    form:
+

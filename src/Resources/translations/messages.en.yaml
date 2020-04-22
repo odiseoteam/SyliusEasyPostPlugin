@@ -1,0 +1,7 @@
+odiseo_sylius_easy_post_plugin:
+    ui:
+        easy_post_configurations: Easy Post configurations
+    menu:
+        admin:
+            easy_post_configurations: Easy Post configurations
+    form:
