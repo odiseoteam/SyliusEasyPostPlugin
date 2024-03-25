@@ -1,93 +1,53 @@
 <p align="center">
-    <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+    <a href="https://www.easypost.com" target="_blank" title="EasyPost">
+        <img src="https://github.com/odiseoteam/SyliusEasyPostPlugin/blob/master/easypost-logo.png" alt="EasyPost Logo" width="600px"/>
+    </a>
+    <br />
+    <a href="https://packagist.org/packages/odiseoteam/sylius-easy-post-plugin" title="License" target="_blank">
+        <img src="https://img.shields.io/packagist/l/odiseoteam/sylius-easy-post-plugin.svg" />
+    </a>
+    <a href="https://packagist.org/packages/odiseoteam/sylius-easy-post-plugin" title="Version" target="_blank">
+        <img src="https://img.shields.io/packagist/v/odiseoteam/sylius-easy-post-plugin.svg" />
+    </a>
+    <a href="https://github.com/odiseoteam/SyliusEasyPostPlugin/actions" title="Build Status" target="_blank">
+        <img src="https://img.shields.io/github/actions/workflow/status/odiseoteam/SyliusEasyPostPlugin/build.yml" />
+    </a>
+    <a href="https://scrutinizer-ci.com/g/odiseoteam/SyliusEasyPostPlugin/" title="Scrutinizer" target="_blank">
+        <img src="https://img.shields.io/scrutinizer/g/odiseoteam/SyliusEasyPostPlugin.svg" />
+    </a>
+    <a href="https://packagist.org/packages/odiseoteam/sylius-easy-post-plugin" title="Total Downloads" target="_blank">
+        <img src="https://poser.pugx.org/odiseoteam/sylius-easy-post-plugin/downloads" />
+    </a>
+    <a href="https://sylius-devs.slack.com" title="Slack" target="_blank">
+        <img src="https://img.shields.io/badge/community%20chat-slack-FF1493.svg" />
+    </a>
+    <a href="https://odiseo.io/contact-us" title="Support" target="_blank">
+        <img src="https://img.shields.io/badge/support-contact%20author-blue" />
     </a>
 </p>
+<p align="center"><a href="https://sylius.com/partners/odiseo/" target="_blank"><img src="https://github.com/odiseoteam/SyliusEasyPostPlugin/blob/master/badge-partner-by-sylius.png" width="140"></a></p>
 
-<h1 align="center">Plugin Skeleton</h1>
+## Description
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+This is a Sylius Plugin that adds EasyPost rates calculator to your store.
+
+[AvaTax demo](https://developer.avalara.com/avatax/avatax-demo)  
+[Understanding AvaTax sandbox accounts](https://help.avalara.com/Avalara_AvaTax_Update/Understanding_AvaTax_sandbox_accounts)
+
+Support Sylius version 1.9+.
+
+## Demo
+
+You can see this plugin in action in our Sylius Demo application.
+
+- Frontend: [sylius-demo.odiseo.com.ar](https://sylius-demo.odiseo.com.ar).
+- Administration: [sylius-demo.odiseo.com.ar/admin](https://sylius-demo.odiseo.com.ar/admin) with `odiseo: odiseo` credentials.
 
 ## Documentation
 
-For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
-there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
+- [Installation](doc/installation.md)
+- [Tests](doc/tests.md)
 
-## Quickstart Installation
+## Credits
 
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
-
-2. From the plugin skeleton root directory, run the following commands:
-
-    ```bash
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && bin/console assets:install public -e test)
-    
-    $ (cd tests/Application && bin/console doctrine:database:create -e test)
-    $ (cd tests/Application && bin/console doctrine:schema:create -e test)
-    ```
-
-To be able to setup a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
-
-## Usage
-
-### Running plugin tests
-
-  - PHPUnit
-
-    ```bash
-    $ vendor/bin/phpunit
-    ```
-
-  - PHPSpec
-
-    ```bash
-    $ vendor/bin/phpspec run
-    ```
-
-  - Behat (non-JS scenarios)
-
-    ```bash
-    $ vendor/bin/behat --tags="~@javascript"
-    ```
-
-  - Behat (JS scenarios)
- 
-    1. Download [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
-    
-    2. Download [Selenium Standalone Server](https://www.seleniumhq.org/download/).
-    
-    2. Run Selenium server with previously downloaded Chromedriver:
-    
-        ```bash
-        $ java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server-standalone.jar
-        ```
-        
-    3. Run test application's webserver on `localhost:8080`:
-    
-        ```bash
-        $ (cd tests/Application && bin/console server:run localhost:8080 -d public -e test)
-        ```
-    
-    4. Run Behat:
-    
-        ```bash
-        $ vendor/bin/behat --tags="@javascript"
-        ```
-
-### Opening Sylius with your plugin
-
-- Using `test` environment:
-
-    ```bash
-    $ (cd tests/Application && bin/console sylius:fixtures:load -e test)
-    $ (cd tests/Application && bin/console server:run -d public -e test)
-    ```
-    
-- Using `dev` environment:
-
-    ```bash
-    $ (cd tests/Application && bin/console sylius:fixtures:load -e dev)
-    $ (cd tests/Application && bin/console server:run -d public -e dev)
-    ```
+This plugin is maintained by <a href="https://odiseo.io">Odiseo</a>. Want us to help you with this plugin or any Sylius project? Contact us on <a href="mailto:team@odiseo.com.ar">team@odiseo.com.ar</a>.

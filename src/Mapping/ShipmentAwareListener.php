@@ -66,7 +66,8 @@ final class ShipmentAwareListener implements EventSubscriber
             $metadata->mapField([
                 'fieldName' => 'postageLabelUrl',
                 'columnName' => 'postage_label_url',
-                'type' => 'boolean',
+                'type' => 'string',
+                'nullable' => true,
             ]);
         }
         if (!$metadata->hasField('easyPostRates')) {
@@ -74,6 +75,7 @@ final class ShipmentAwareListener implements EventSubscriber
                 'fieldName' => 'easyPostRates',
                 'columnName' => 'easy_post_rates',
                 'type' => 'string',
+                'nullable' => true,
             ]);
         }
         if (!$metadata->hasField('trackingUrl')) {
@@ -81,6 +83,7 @@ final class ShipmentAwareListener implements EventSubscriber
                 'fieldName' => 'trackingUrl',
                 'columnName' => 'tracking_url',
                 'type' => 'string',
+                'nullable' => true,
             ]);
         }
     }

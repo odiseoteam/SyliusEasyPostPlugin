@@ -7,27 +7,21 @@ use EasyPost\Rate;
 use EasyPost\Shipment;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class EasyPostService
 {
     /** @var Shipment */
     private $shipment;
 
-    /** @var Session */
-    protected $session;
+    /** @var RequestStack */
+    protected $requestStack;
 
-    /**
-     * EasyPostService constructor.
-     *
-     * @param string $apiKey
-     * @param Session $session
-     */
-    public function __construct($apiKey, Session $session)
+    public function __construct($apiKey, RequestStack $requestStack)
     {
         EasyPost::setApiKey($apiKey);
 
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     public function buyShipment(Rate $rate)
@@ -154,6 +148,6 @@ class EasyPostService
 
         $sessionRates = json_encode($sessionRates);
 
-        $this->session->set('sessionRates', $sessionRates);
+        $this->requestStack->getSession()->set('sessionRates', $sessionRates);
     }
 }

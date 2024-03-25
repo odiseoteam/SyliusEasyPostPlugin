@@ -6,18 +6,18 @@ use EasyPost\Error;
 use Odiseo\SyliusEasyPostPlugin\Service\EasyPostService;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Model\ShipmentInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class EasyPostCalculator implements CalculatorInterface
 {
     private $easyPostService;
 
-    private $session;
+    private $requestStack;
 
-    public function __construct(EasyPostService $easyPostService, Session $session)
+    public function __construct(EasyPostService $easyPostService, RequestStack $requestStack)
     {
         $this->easyPostService = $easyPostService;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     public function calculate(ShipmentInterface $subject, array $configuration): int

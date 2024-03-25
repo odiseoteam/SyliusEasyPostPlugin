@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusEasyPostPlugin\Menu;
 
 use Knp\Menu\ItemInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
-class AdminMenuListener
+final class AdminMenuListener
 {
-    /**
-     * @param MenuBuilderEvent $event
-     */
     public function addAdminMenuItems(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
