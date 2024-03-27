@@ -8,29 +8,11 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Mapping\MappingException;
-use Odiseo\SyliusEasyPostPlugin\Entity\ShipmentAwareInterface;
-use Sylius\Component\Resource\Metadata\RegistryInterface;
+use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostAwareInterface;
+use Sylius\Component\Shipping\Model\ShipmentInterface;
 
-final class ShipmentAwareListener implements EventSubscriber
+final class EasyPostAwareListener implements EventSubscriber
 {
-    /** @var RegistryInterface */
-    private $resourceMetadataRegistry;
-
-    /** @var string */
-    private $itemClass;
-
-    public function __construct(
-        RegistryInterface $resourceMetadataRegistry,
-        string $itemClass
-    ) {
-        $this->resourceMetadataRegistry = $resourceMetadataRegistry;
-        $this->itemClass = $itemClass;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getSubscribedEvents(): array
     {
         return [
@@ -38,29 +20,27 @@ final class ShipmentAwareListener implements EventSubscriber
         ];
     }
 
-    /**
-     * @throws MappingException
-     */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
     {
         $classMetadata = $eventArgs->getClassMetadata();
         $reflection = $classMetadata->reflClass;
 
-        if (!$reflection instanceof \ReflectionClass || $reflection->isAbstract()) {
+        /**
+         * @phpstan-ignore-next-line
+         */
+        if ($reflection === null || $reflection->isAbstract()) {
             return;
         }
 
         if (
-        $reflection->implementsInterface(ShipmentAwareInterface::class)
+            $reflection->implementsInterface(ShipmentInterface::class) &&
+            $reflection->implementsInterface(EasyPostAwareInterface::class)
         ) {
-            $this->mapItemAware($classMetadata);
+            $this->mapEasyPostAware($classMetadata);
         }
     }
 
-    /**
-     * @throws MappingException
-     */
-    private function mapItemAware(ClassMetadata $metadata): void
+    private function mapEasyPostAware(ClassMetadata $metadata): void
     {
         if (!$metadata->hasField('postageLabelUrl')) {
             $metadata->mapField([

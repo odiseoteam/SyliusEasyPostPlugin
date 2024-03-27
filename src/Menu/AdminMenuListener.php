@@ -19,9 +19,9 @@ final class AdminMenuListener
             $item = $menu;
         }
 
-        $item->addChild('easyPostConfig', ['route' => 'odiseo_sylius_easy_post_plugin_admin_easy_post_configuration_index'])
-            ->setLabel('odiseo_sylius_easy_post_plugin.menu.admin.easy_post_configurations')
-            ->setLabelAttribute('icon', 'trademark')
+        $item->addChild('easyPost', ['route' => 'odiseo_sylius_easy_post_plugin_admin_easy_post_configuration_index'])
+            ->setLabel('odiseo_sylius_easy_post_plugin.menu.admin.easy_post')
+            ->setLabelAttribute('icon', 'cog')
         ;
     }
 }

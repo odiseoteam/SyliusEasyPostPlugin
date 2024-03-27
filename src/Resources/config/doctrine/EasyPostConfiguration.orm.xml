@@ -10,15 +10,9 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
-        <field name="name" unique="true"/>
-        <field name="apiKey" unique="true"/>
-        <field name="street1"/>
-        <field name="street2" nullable="true"/>
-        <field name="city"/>
-        <field name="state"/>
-        <field name="country"/>
-        <field name="zip"/>
-        <field name="phone" nullable="true"/>
+
+        <field name="name" type="string"/>
+        <field name="apiKey" type="string" column="api_key"/>
         <field name="enabled" type="boolean"/>
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create"/>
@@ -26,5 +20,12 @@
         <field name="updatedAt" type="datetime" column="updated_at">
             <gedmo:timestampable on="update"/>
         </field>
+
+        <one-to-one field="senderData" target-entity="Odiseo\SyliusAvataxPlugin\Entity\AvataxConfigurationSenderDataInterface">
+            <join-column name="sender_data_id" on-delete="CASCADE"/>
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-one>
     </mapped-superclass>
 </doctrine-mapping>

@@ -1,0 +1,7 @@
+services:
+    odiseo_sylius_easy_post_plugin.shipping.calculator.easy_post_rate:
+        class: Odiseo\SyliusEasyPostPlugin\Shipping\Calculator\EasyPostRateCalculator
+        arguments:
+            - '@odiseo_sylius_easy_post_plugin.api.easy_post_client'
+        tags:
+            - { name: sylius.shipping_calculator, calculator: easy_post_rate, form_type: Odiseo\SyliusEasyPostPlugin\Form\Type\Shipping\Calculator\EasyPostRateConfigurationType, label: odiseo_sylius_easy_post_plugin.form.shipping_calculator.easy_post_rate_configuration.label }

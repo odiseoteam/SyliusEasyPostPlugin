@@ -3,10 +3,8 @@ services:
         class: Odiseo\SyliusEasyPostPlugin\Menu\AdminMenuListener
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
-    odiseo_sylius_easy_post_plugin.event_listener.shipment_aware_listener:
-        class: Odiseo\SyliusEasyPostPlugin\Mapping\ShipmentAwareListener
-        arguments:
-            - '@sylius.resource_registry'
-            - '%sylius.model.shipment.class%'
+
+    odiseo_sylius_easy_post_plugin.event_listener.easy_post_aware_listener:
+        class: Odiseo\SyliusEasyPostPlugin\Mapping\EasyPostAwareListener
         tags:
             - { name: doctrine.event_subscriber, connection: default, priority: 99 }

@@ -1,0 +1,6 @@
+services:
+    odiseo_sylius_easy_post_plugin.api.easy_post_client:
+        class: Odiseo\SyliusEasyPostPlugin\Api\EasyPostClient
+        arguments:
+            - '@odiseo_sylius_easy_post_plugin.provider.enabled_easy_post_configuration'
+        lazy: true

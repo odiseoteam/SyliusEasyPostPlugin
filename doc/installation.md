@@ -40,29 +40,23 @@ odiseo_sylius_easy_post_plugin_admin:
 
 // ...
 use Doctrine\ORM\Mapping as ORM;
-use Odiseo\SyliusEasyPostPlugin\Entity\ShipmentAwareInterface;
-use Odiseo\SyliusEasyPostPlugin\Entity\ShipmentTrait;
+use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostAwareInterface;
+use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostTrait;
 use Sylius\Component\Core\Model\Shipment as BaseShipment;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="sylius_shipment")
  */
-class Shipment extends BaseShipment implements ShipmentAwareInterface
+class Shipment extends BaseShipment implements EasyPostAwareInterface
 {
-    use ShipmentTrait;
+    use EasyPostTrait;
 
     // ...
 }
 ```
 
-6. Add the environment variables
-
-```yml
-ODISEO_EASY_POST_APIKEY=EDITME
-```
-
-7. Finish the installation updating the database schema and installing assets
+6. Finish the installation updating the database schema and installing assets
 
 ```
 php bin/console doctrine:migrations:migrate

@@ -9,9 +9,9 @@ odiseo_sylius_easy_post_plugin_admin_easy_post_configuration:
         permission: true
         vars:
             all:
-                subheader: odiseo_sylius_avatax_plugin.ui.manage_configurations
+                subheader: odiseo_sylius_easy_post_plugin.ui.manage_configurations
                 templates:
                     form: '@OdiseoSyliusEasyPostPlugin/Admin/EasyPostConfiguration/_form.html.twig'
             index:
-                icon: trademark
+                icon: cog
     type: sylius.resource

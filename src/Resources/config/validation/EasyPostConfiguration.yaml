@@ -1,0 +1,22 @@
+Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfiguration:
+    properties:
+        name:
+            - NotBlank:
+                message: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.name.not_blank'
+                groups: ['odiseo']
+            - Length:
+                min: 2
+                max: 50
+                minMessage: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.name.min_length'
+                maxMessage: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.name.max_length'
+                groups: ['odiseo']
+        apiKey:
+            - NotBlank:
+                message: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.api_key.not_blank'
+                groups: ['odiseo']
+            - Length:
+                min: 2
+                max: 250
+                minMessage: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.api_key.min_length'
+                maxMessage: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.api_key.max_length'
+                groups: ['odiseo']

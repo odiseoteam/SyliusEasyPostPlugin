@@ -5,3 +5,16 @@ sylius_resource:
             classes:
                 model: Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfiguration
                 interface: Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationInterface
+                form: Odiseo\SyliusEasyPostPlugin\Form\Type\EasyPostConfigurationType
+                repository: Odiseo\SyliusEasyPostPlugin\Repository\EasyPostConfigurationRepository
+                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+                factory: Sylius\Component\Resource\Factory\Factory
+        odiseo_sylius_easy_post_plugin.easy_post_configuration_sender_data:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationSenderData
+                interface: Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationSenderDataInterface
+                form: Odiseo\SyliusEasyPostPlugin\Form\Type\EasyPostConfigurationSenderDataType
+                repository: Odiseo\SyliusEasyPostPlugin\Repository\EasyPostConfigurationSenderDataRepository
+                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+                factory: Sylius\Component\Resource\Factory\Factory
