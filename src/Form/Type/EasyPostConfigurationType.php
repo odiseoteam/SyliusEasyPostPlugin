@@ -17,10 +17,10 @@ final class EasyPostConfigurationType extends AbstractResourceType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'odiseo_sylius_easy_post_plugin.form.easy_post_configuration.app_name',
+                'label' => 'sylius.ui.name',
             ])
             ->add('apiKey', TextType::class, [
-                'label' => 'odiseo_sylius_easy_post_plugin.form.easy_post_configuration.license_key',
+                'label' => 'odiseo_sylius_easy_post_plugin.form.easy_post_configuration.api_key',
             ])
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius.ui.enabled',

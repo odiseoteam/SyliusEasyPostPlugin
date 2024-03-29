@@ -43,12 +43,12 @@ final class EasyPostRateCalculator implements CalculatorInterface
         try {
             $rate = $this->easyPostClient->getRate($order, $configuration['carrier'], $configuration['service']);
 
-            $ratePrice = (int) ($rate->rate * 100);
-
-            return $ratePrice;
+            return (int) ((float) ($rate->rate) * 100);
         } catch (Error $e) {
             //dump($e);die;
             throw $e;
+        } catch (\Exception $e) {
+            return 0;
         }
     }
 

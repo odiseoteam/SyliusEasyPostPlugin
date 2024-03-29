@@ -50,10 +50,10 @@ final class EasyPostAwareListener implements EventSubscriber
                 'nullable' => true,
             ]);
         }
-        if (!$metadata->hasField('easyPostRates')) {
+        if (!$metadata->hasField('rates')) {
             $metadata->mapField([
-                'fieldName' => 'easyPostRates',
-                'columnName' => 'easy_post_rates',
+                'fieldName' => 'rates',
+                'columnName' => 'rates',
                 'type' => 'string',
                 'nullable' => true,
             ]);

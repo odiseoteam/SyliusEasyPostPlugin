@@ -21,7 +21,7 @@
             <gedmo:timestampable on="update"/>
         </field>
 
-        <one-to-one field="senderData" target-entity="Odiseo\SyliusAvataxPlugin\Entity\AvataxConfigurationSenderDataInterface">
+        <one-to-one field="senderData" target-entity="Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationSenderDataInterface">
             <join-column name="sender_data_id" on-delete="CASCADE"/>
             <cascade>
                 <cascade-all />

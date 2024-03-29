@@ -1,39 +1,40 @@
-{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
-
 {{ form_errors(form) }}
 
 <div class="ui two column stackable grid">
     <div class="column">
         <div class="ui segment">
             {{ form_row(form.name) }}
-{#            {% include '@OdiseoSyliusEasyPostPlugin/Field/_slug.html.twig' with { 'slugField': form.slug } %}#}
-            {{ form_row(form.apiKey) }}
             {{ form_row(form.enabled) }}
         </div>
     </div>
     <div class="column">
+        <div class="ui segment">
+            {{ form_row(form.apiKey) }}
+        </div>
+    </div>
+</div>
+<div class="ui one column stackable grid">
+    <div class="column">
+        <h4 class="ui top attached large header">{{ form_label(form.senderData) }}</h4>
         <div class="ui attached segment">
+            <div class="three fields">
+                {{ form_row(form.senderData.firstName) }}
+                {{ form_row(form.senderData.lastName) }}
+                {{ form_row(form.senderData.company) }}
+            </div>
+            <div class="three fields">
+                {{ form_row(form.senderData.countryCode) }}
+                {{ form_row(form.senderData.provinceCode) }}
+                {{ form_row(form.senderData.provinceName) }}
+            </div>
+            <div class="three fields">
+                {{ form_row(form.senderData.street) }}
+                {{ form_row(form.senderData.city) }}
+                {{ form_row(form.senderData.postcode) }}
+            </div>
             <div class="field">
-                {{ form_row(form.street1) }}
-            </div>
-            <div class="two fields">
-                {{ form_row(form.street2) }}
-                {{ form_row(form.phone) }}
-            </div>
-            <div class="two fields">
-                {{ form_row(form.city) }}
-                {{ form_row(form.state) }}
-            </div>
-            <div class="two fields">
-                {{ form_row(form.country) }}
-                {{ form_row(form.zip) }}
+                {{ form_row(form.senderData.phoneNumber) }}
             </div>
         </div>
     </div>
 </div>
-
-{#<div class="ui one column stackable grid">#}
-{#    <div class="column">#}
-{#        {{ translationForm(form.translations) }}#}
-{#    </div>#}
-{#</div>#}

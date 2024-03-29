@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusEasyPostPlugin\Api;
 
+use Doctrine\Common\Collections\Collection;
 use EasyPost\EasyPost;
 use EasyPost\Rate;
 use EasyPost\Shipment;
@@ -31,7 +32,7 @@ class EasyPostClient
         EasyPost::setApiKey($apiKey);
     }
 
-    public function buyShipment(Rate $rate)
+    public function buyShipment(Rate $rate): Shipment
     {
         $shipmentId = $rate->shipment_id;
         $shipment = $this->getShipment($shipmentId);
@@ -43,24 +44,26 @@ class EasyPostClient
         return $shipment;
     }
 
-    public function getSelectedRate($id)
+    public function getSelectedRate($id): Rate
     {
         $rate = Rate::retrieve($id);
 
         return $rate;
     }
 
-    public function getRate(OrderInterface $order, $carrier, $service = null)
+    public function getRate(OrderInterface $order, string $carrier, ?string $service = null): Rate
     {
-        /** @var AddressInterface $shippingAddress */
         $shippingAddress = $order->getShippingAddress();
+        if (null === $shippingAddress) {
+            throw new \Exception('No rate found');
+        }
 
         $items = $order->getItems();
 
-        $this->shipment = $this->getOrCreateShipment($shippingAddress, $items);
+        $shipment = $this->getOrCreateShipment($shippingAddress, $items);
 
         if ($service) {
-            foreach ($this->shipment->rates as $rate) {
+            foreach ($shipment->rates as $rate) {
                 if ($rate->carrier == $carrier && $rate->service == $service) {
                     return $rate;
                 }
@@ -70,16 +73,12 @@ class EasyPostClient
         throw new \Exception('No rate found');
     }
 
-    private function getOrCreateShipment(AddressInterface $shippingAddress, $items)
+    private function getOrCreateShipment(AddressInterface $shippingAddress, Collection $items): Shipment
     {
-        if (!$this->shipment) {
-            $this->shipment = $this->createShipment($shippingAddress, $items);
-        }
-
-        return $this->shipment;
+        return $this->createShipment($shippingAddress, $items);
     }
 
-    private function createShipment(AddressInterface $shippingAddress, $items)
+    private function createShipment(AddressInterface $shippingAddress, Collection $items): Shipment
     {
         return Shipment::create([
             'from_address' => $this->getFromAddress(),
@@ -88,7 +87,7 @@ class EasyPostClient
         ]);
     }
 
-    private function getParcel($items)
+    private function getParcel(Collection $items): array
     {
         $length = 0;
         $width = 0;
@@ -111,9 +110,9 @@ class EasyPostClient
         ];
     }
 
-    private function getToAddress(AddressInterface $shippingAddress)
+    private function getToAddress(AddressInterface $shippingAddress): array
     {
-        $provinceCode = str_replace('CA-', '', $shippingAddress->getProvinceCode());
+        $provinceCode = str_replace('CA-', '', (string) $shippingAddress->getProvinceCode());
 
         return [
             'name' => $shippingAddress->getFullName(),
