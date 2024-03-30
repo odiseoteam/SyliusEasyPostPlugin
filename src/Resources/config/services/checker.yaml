@@ -1,0 +1,7 @@
+services:
+    odiseo_sylius_easy_post_plugin.shipping.checker.eligibility.easy_post:
+        class: Odiseo\SyliusEasyPostPlugin\Shipping\Checker\Eligibility\EasyPostEligibilityChecker
+        arguments:
+            - '@odiseo_sylius_easy_post_plugin.api.easy_post_client'
+        tags:
+            - { name: sylius.shipping_method_eligibility_checker }

@@ -6,6 +6,7 @@ namespace Odiseo\SyliusEasyPostPlugin\Api;
 
 use Doctrine\Common\Collections\Collection;
 use EasyPost\EasyPost;
+use EasyPost\Error;
 use EasyPost\Rate;
 use EasyPost\Shipment;
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationInterface;
@@ -51,40 +52,26 @@ class EasyPostClient
         return $rate;
     }
 
-    public function getRate(OrderInterface $order, string $carrier, ?string $service = null): Rate
+    public function getRates(OrderInterface $order): array
     {
         $shippingAddress = $order->getShippingAddress();
-        if (null === $shippingAddress) {
-            throw new \Exception('No rate found');
-        }
-
         $items = $order->getItems();
-
-        $shipment = $this->getOrCreateShipment($shippingAddress, $items);
-
-        if ($service) {
-            foreach ($shipment->rates as $rate) {
-                if ($rate->carrier == $carrier && $rate->service == $service) {
-                    return $rate;
-                }
-            }
+        if (null === $shippingAddress || $items->isEmpty()) {
+            return [];
         }
 
-        throw new \Exception('No rate found');
-    }
+        try {
+            /** @var Shipment $shipment */
+            $shipment = Shipment::create([
+                'from_address' => $this->getFromAddress(),
+                'to_address' => $this->getToAddress($shippingAddress),
+                'parcel' => $this->getParcel($items),
+            ]);
 
-    private function getOrCreateShipment(AddressInterface $shippingAddress, Collection $items): Shipment
-    {
-        return $this->createShipment($shippingAddress, $items);
-    }
-
-    private function createShipment(AddressInterface $shippingAddress, Collection $items): Shipment
-    {
-        return Shipment::create([
-            'from_address' => $this->getFromAddress(),
-            'to_address' => $this->getToAddress($shippingAddress),
-            'parcel' => $this->getParcel($items),
-        ]);
+            return $shipment->rates;
+        } catch (Error $exception) {
+            throw $exception;
+        }
     }
 
     private function getParcel(Collection $items): array

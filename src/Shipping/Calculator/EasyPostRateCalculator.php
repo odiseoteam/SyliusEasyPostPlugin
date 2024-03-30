@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Odiseo\SyliusEasyPostPlugin\Shipping\Calculator;
 
 use EasyPost\Error;
+use EasyPost\Rate;
 use Odiseo\SyliusEasyPostPlugin\Api\EasyPostClient;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\ShipmentInterface;
+use Sylius\Component\Core\Exception\MissingChannelConfigurationException;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
-use Sylius\Component\Shipping\Model\ShipmentInterface as BaseShipmentInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Webmozart\Assert\Assert;
+use Sylius\Component\Shipping\Model\ShipmentInterface;
 
 final class EasyPostRateCalculator implements CalculatorInterface
 {
@@ -20,36 +18,35 @@ final class EasyPostRateCalculator implements CalculatorInterface
     ) {
     }
 
-    public function calculate(BaseShipmentInterface $subject, array $configuration): int
+    public function calculate(ShipmentInterface $subject, array $configuration): int
     {
-        Assert::isInstanceOf($subject, ShipmentInterface::class);
-
-        if (!isset($configuration['carrier'])) {
-            throw new NotFoundHttpException(sprintf(
-                'Carrier not defined for shipping method %s',
-                $subject->getMethod()->getName(),
-            ));
-        }
-        if (!isset($configuration['service'])) {
-            throw new NotFoundHttpException(sprintf(
-                'Service not defined for shipping method %s',
-                $subject->getMethod()->getName(),
-            ));
-        }
-
-        /** @var OrderInterface $order */
         $order = $subject->getOrder();
+        $channel = $order->getChannel();
+
+        $channelCode = $channel->getCode();
+
+        if (!isset($configuration[$channelCode])) {
+            throw new MissingChannelConfigurationException(sprintf(
+                'Channel %s has no configuration defined for shipping method %s',
+                $channel->getName(),
+                $subject->getMethod()->getName(),
+            ));
+        }
 
         try {
-            $rate = $this->easyPostClient->getRate($order, $configuration['carrier'], $configuration['service']);
-
-            return (int) ((float) ($rate->rate) * 100);
-        } catch (Error $e) {
-            //dump($e);die;
-            throw $e;
-        } catch (\Exception $e) {
-            return 0;
+            $rates = $this->easyPostClient->getRates($order);
+        } catch (Error $exception) {
+            $rates = [];
         }
+
+        /** @var Rate $rate */
+        foreach ($rates as $rate) {
+            if ($rate->carrier === $configuration[$channelCode]['carrier'] && $rate->service === $configuration[$channelCode]['service']) {
+                return (int) ($rate->rate * 100);
+            }
+        }
+
+        return (int) $configuration[$channelCode]['default_amount'];
     }
 
     public function getType(): string

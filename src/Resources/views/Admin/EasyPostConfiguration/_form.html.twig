@@ -17,18 +17,24 @@
     <div class="column">
         <h4 class="ui top attached large header">{{ form_label(form.senderData) }}</h4>
         <div class="ui attached segment">
-            <div class="three fields">
+            <div class="two fields">
                 {{ form_row(form.senderData.firstName) }}
                 {{ form_row(form.senderData.lastName) }}
+            </div>
+            <div class="field">
                 {{ form_row(form.senderData.company) }}
             </div>
-            <div class="three fields">
+            <div class="field">
+                {{ form_row(form.senderData.street) }}
+            </div>
+            <div class="field">
                 {{ form_row(form.senderData.countryCode) }}
+            </div>
+            <div class="two fields">
                 {{ form_row(form.senderData.provinceCode) }}
                 {{ form_row(form.senderData.provinceName) }}
             </div>
-            <div class="three fields">
-                {{ form_row(form.senderData.street) }}
+            <div class="two fields">
                 {{ form_row(form.senderData.city) }}
                 {{ form_row(form.senderData.postcode) }}
             </div>
