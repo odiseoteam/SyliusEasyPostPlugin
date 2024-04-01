@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusEasyPostPlugin\Form\Type;
 
+use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,9 +17,7 @@ final class EasyPostConfigurationType extends AbstractResourceType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'sylius.ui.name',
-            ])
+            ->addEventSubscriber(new AddCodeFormSubscriber())
             ->add('apiKey', TextType::class, [
                 'label' => 'odiseo_sylius_easy_post_plugin.form.easy_post_configuration.api_key',
             ])

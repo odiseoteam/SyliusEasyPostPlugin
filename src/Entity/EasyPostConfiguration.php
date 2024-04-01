@@ -14,7 +14,7 @@ class EasyPostConfiguration implements EasyPostConfigurationInterface
 
     protected ?int $id = null;
 
-    protected ?string $name = null;
+    protected ?string $code = null;
 
     protected ?string $apiKey = null;
 
@@ -25,19 +25,19 @@ class EasyPostConfiguration implements EasyPostConfigurationInterface
         $this->createdAt = new \DateTime();
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): void
+    {
+        $this->code = $code;
     }
 
     public function getApiKey(): ?string

@@ -10,6 +10,7 @@ use EasyPost\Error;
 use EasyPost\Rate;
 use EasyPost\Shipment;
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationInterface;
+use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationSenderDataInterface;
 use Odiseo\SyliusEasyPostPlugin\Provider\EnabledEasyPostConfigurationProviderInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -98,14 +99,13 @@ class EasyPostClient
 
     private function getToAddress(AddressInterface $shippingAddress): array
     {
-        $provinceCode = str_replace('CA-', '', (string) $shippingAddress->getProvinceCode());
-
         return [
             'name' => $shippingAddress->getFullName(),
+            'company' => $shippingAddress->getCompany(),
             'street1' => $shippingAddress->getStreet(),
             'city' => $shippingAddress->getCity(),
             'country' => $shippingAddress->getCountryCode(),
-            'state' => $provinceCode,
+            'state' => $shippingAddress->getProvinceCode() ?? $shippingAddress->getProvinceName(),
             'zip' => $shippingAddress->getPostcode(),
             'phone' => $shippingAddress->getPhoneNumber(),
         ];
@@ -116,6 +116,9 @@ class EasyPostClient
         $configuration = $this->enabledEasyPostConfigurationProvider->getConfiguration();
 
         $senderData = $configuration->getSenderData();
+        if (!$senderData instanceof EasyPostConfigurationSenderDataInterface) {
+            return [];
+        }
 
         return [
             'name' => $senderData->getFullName(),
@@ -123,7 +126,7 @@ class EasyPostClient
             'street1' => $senderData->getStreet(),
             'city' => $senderData->getCity(),
             'country' => $senderData->getCountryCode(),
-            'state' => $senderData->getProvinceName(),
+            'state' => $senderData->getProvinceCode() ?? $senderData->getProvinceName(),
             'zip' => $senderData->getPostcode(),
             'phone' => $senderData->getPhoneNumber(),
         ];

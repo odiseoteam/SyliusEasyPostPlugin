@@ -1,9 +1,9 @@
 odiseo_sylius_easy_post_plugin:
     easy_post_configuration:
-        name:
-            not_blank: Name cannot be blank.
-            min_length: Name must be at least {{ limit }} characters long.
-            max_length: Name can not be longer than {{ limit }} characters.
+        code:
+            unique: There is an existing configuration with this code.
+            not_blank: Code cannot be blank.
+            regex: Code can only be comprised of letters, numbers, dashes and underscores.
         api_key:
             not_blank: API key cannot be blank.
             min_length: API key must be at least {{ limit }} characters long.

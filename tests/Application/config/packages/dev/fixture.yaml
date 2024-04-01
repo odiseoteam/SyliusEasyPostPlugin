@@ -1,0 +1,35 @@
+sylius_fixtures:
+    suites:
+        default:
+            fixtures:
+                easy_post_configuration:
+                    options:
+                        custom:
+                            default:
+                                code: 'default'
+                                api_key: '%env(resolve:ODISEO_EASY_POST_API_KEY)%'
+                                sender_data:
+                                    company: 'Odiseo'
+                                    street: '118 2nd Street 4th Floor'
+                                    city: 'San Francisco'
+                                    province_code: 'CA'
+                                    postcode: '94105'
+                                    phone_number: '415-456-7890'
+                                enabled: true
+
+                shipping_method:
+                    options:
+                        custom:
+                            usps:
+                                code: 'usps'
+                                name: 'USPS'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'PriorityMailInternational'
+                                            default_amount: 1000

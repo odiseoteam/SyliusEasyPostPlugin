@@ -11,7 +11,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="name" type="string"/>
+        <field name="code" type="string" unique="true"/>
         <field name="apiKey" type="string" column="api_key"/>
         <field name="enabled" type="boolean"/>
         <field name="createdAt" type="datetime" column="created_at">

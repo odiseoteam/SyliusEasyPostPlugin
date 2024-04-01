@@ -1,0 +1,13 @@
+services:
+    odiseo_sylius_easy_post_plugin.fixture.example_factory.easy_post_configuration:
+        class: Odiseo\SyliusEasyPostPlugin\Fixture\Factory\EasyPostConfigurationExampleFactory
+        arguments:
+            - '@odiseo_sylius_easy_post_plugin.factory.easy_post_configuration'
+
+    odiseo_sylius_easy_post_plugin.fixture.easy_post_configuration:
+        class: Odiseo\SyliusEasyPostPlugin\Fixture\EasyPostConfigurationFixture
+        arguments:
+            - '@odiseo_sylius_easy_post_plugin.manager.easy_post_configuration'
+            - '@odiseo_sylius_easy_post_plugin.fixture.example_factory.easy_post_configuration'
+        tags:
+            - { name: sylius_fixtures.fixture }
