@@ -27,3 +27,4 @@ odiseo_sylius_easy_post_plugin:
                 label: Tarifa Easy Post
                 carrier: Transportador
                 service: Servicio
+                default_amount: Monto predeterminado

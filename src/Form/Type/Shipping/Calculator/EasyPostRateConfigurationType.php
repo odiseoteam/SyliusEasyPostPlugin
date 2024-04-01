@@ -33,9 +33,9 @@ final class EasyPostRateConfigurationType extends AbstractType
             ->add('default_amount', MoneyType::class, [
                 'label' => 'odiseo_sylius_easy_post_plugin.form.shipping_calculator.easy_post_rate_configuration.default_amount',
                 'constraints' => [
-                    new NotBlank(['groups' => ['sylius']]),
-                    new Range(['min' => 0, 'minMessage' => 'sylius.shipping_method.calculator.min', 'groups' => ['sylius']]),
-                    new Type(['type' => 'integer', 'groups' => ['sylius']]),
+                    new NotBlank(['groups' => ['odiseo']]),
+                    new Range(['min' => 0, 'minMessage' => 'sylius.shipping_method.calculator.min', 'groups' => ['odiseo']]),
+                    new Type(['type' => 'integer', 'groups' => ['odiseo']]),
                 ],
                 'currency' => $options['currency'],
             ])
@@ -47,6 +47,7 @@ final class EasyPostRateConfigurationType extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class' => null,
+                'validation_groups' => ['odiseo'],
             ])
             ->setRequired('currency')
             ->setAllowedTypes('currency', 'string')

@@ -14,7 +14,6 @@ use Odiseo\SyliusEasyPostPlugin\Provider\EnabledEasyPostConfigurationProviderInt
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EasyPostClient
 {
@@ -23,7 +22,7 @@ class EasyPostClient
     ) {
         $easyPostConfiguration = $this->enabledEasyPostConfigurationProvider->getConfiguration();
         if (!$easyPostConfiguration instanceof EasyPostConfigurationInterface) {
-            throw new NotFoundHttpException(
+            throw new Error(
                 sprintf('The "%s" has not been found', EasyPostConfigurationInterface::class),
             );
         }

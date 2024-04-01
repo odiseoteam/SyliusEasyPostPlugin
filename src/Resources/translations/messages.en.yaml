@@ -27,3 +27,4 @@ odiseo_sylius_easy_post_plugin:
                 label: Easy Post rate
                 carrier: Carrier
                 service: Service
+                default_amount: Default amount
