@@ -1,5 +1,6 @@
 imports:
     - { resource: services/api.yaml }
+    - { resource: services/assigner.yaml }
     - { resource: services/calculator.yaml }
     - { resource: services/event_listener.yaml }
     - { resource: services/fixture.yaml }

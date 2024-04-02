@@ -9,12 +9,14 @@ use EasyPost\EasyPost;
 use EasyPost\Error;
 use EasyPost\Rate;
 use EasyPost\Shipment;
+use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostAwareInterface;
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationInterface;
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationSenderDataInterface;
 use Odiseo\SyliusEasyPostPlugin\Provider\EnabledEasyPostConfigurationProviderInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
 
 class EasyPostClient
 {
@@ -31,6 +33,60 @@ class EasyPostClient
         $apiKey = (string) $easyPostConfiguration->getApiKey();
 
         EasyPost::setApiKey($apiKey);
+    }
+
+    public function createShipment(OrderInterface $order): ?Shipment
+    {
+        $shippingAddress = $order->getShippingAddress();
+        $items = $order->getItems();
+        if (null === $shippingAddress || $items->isEmpty()) {
+            return null;
+        }
+
+        try {
+            /** @var Shipment $shipment */
+            $shipment = Shipment::create([
+                'from_address' => $this->getFromAddress(),
+                'to_address' => $this->getToAddress($shippingAddress),
+                'parcel' => $this->getParcel($items),
+            ]);
+
+            return $shipment;
+        } catch (Error $exception) {
+            return null;
+        }
+    }
+
+    public function getShipment(string $id): ?Shipment
+    {
+        try {
+            /** @var Shipment $shipment */
+            $shipment = Shipment::retrieve($id);
+
+            return $shipment;
+        } catch (Error $exception) {
+            dd($exception);
+            return null;
+        }
+    }
+
+    public function getRates(ShipmentInterface $subject): array
+    {
+        if (!$subject instanceof EasyPostAwareInterface) {
+            return [];
+        }
+
+        $shipmentId = $subject->getShipmentId();
+        if (null === $shipmentId) {
+            return [];
+        }
+
+        $shipment = $this->getShipment($shipmentId);
+        if (null === $shipment) {
+            return [];
+        }
+
+        return $shipment->rates;
     }
 
     public function buyShipment(Rate $rate): Shipment
@@ -50,28 +106,6 @@ class EasyPostClient
         $rate = Rate::retrieve($id);
 
         return $rate;
-    }
-
-    public function getRates(OrderInterface $order): array
-    {
-        $shippingAddress = $order->getShippingAddress();
-        $items = $order->getItems();
-        if (null === $shippingAddress || $items->isEmpty()) {
-            return [];
-        }
-
-        try {
-            /** @var Shipment $shipment */
-            $shipment = Shipment::create([
-                'from_address' => $this->getFromAddress(),
-                'to_address' => $this->getToAddress($shippingAddress),
-                'parcel' => $this->getParcel($items),
-            ]);
-
-            return $shipment->rates;
-        } catch (Error $exception) {
-            throw $exception;
-        }
     }
 
     private function getParcel(Collection $items): array
@@ -130,10 +164,5 @@ class EasyPostClient
             'zip' => $senderData->getPostcode(),
             'phone' => $senderData->getPhoneNumber(),
         ];
-    }
-
-    private function getShipment($id): Shipment
-    {
-        return Shipment::retrieve($id);
     }
 }

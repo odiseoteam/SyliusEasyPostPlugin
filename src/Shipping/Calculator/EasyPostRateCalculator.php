@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusEasyPostPlugin\Shipping\Calculator;
 
-use EasyPost\Error;
 use EasyPost\Rate;
 use Odiseo\SyliusEasyPostPlugin\Api\EasyPostClient;
 use Sylius\Component\Core\Exception\MissingChannelConfigurationException;
+use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
-use Sylius\Component\Shipping\Model\ShipmentInterface;
+use Sylius\Component\Shipping\Model\ShipmentInterface as BaseShipmentInterface;
 
 final class EasyPostRateCalculator implements CalculatorInterface
 {
@@ -18,9 +18,12 @@ final class EasyPostRateCalculator implements CalculatorInterface
     ) {
     }
 
-    public function calculate(ShipmentInterface $subject, array $configuration): int
+    public function calculate(BaseShipmentInterface $subject, array $configuration): int
     {
-        $order = $subject->getOrder();
+        /** @var ShipmentInterface $shipment */
+        $shipment = $subject;
+
+        $order = $shipment->getOrder();
         $channel = $order->getChannel();
 
         $channelCode = $channel->getCode();
@@ -29,15 +32,11 @@ final class EasyPostRateCalculator implements CalculatorInterface
             throw new MissingChannelConfigurationException(sprintf(
                 'Channel %s has no configuration defined for shipping method %s',
                 $channel->getName(),
-                $subject->getMethod()->getName(),
+                $shipment->getMethod()->getName(),
             ));
         }
 
-        try {
-            $rates = $this->easyPostClient->getRates($order);
-        } catch (Error $exception) {
-            $rates = [];
-        }
+        $rates = $this->easyPostClient->getRates($shipment);
 
         /** @var Rate $rate */
         foreach ($rates as $rate) {

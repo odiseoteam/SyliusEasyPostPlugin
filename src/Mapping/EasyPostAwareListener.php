@@ -42,18 +42,26 @@ final class EasyPostAwareListener implements EventSubscriber
 
     private function mapEasyPostAware(ClassMetadata $metadata): void
     {
-        if (!$metadata->hasField('postageLabelUrl')) {
+        if (!$metadata->hasField('shipmentId')) {
             $metadata->mapField([
-                'fieldName' => 'postageLabelUrl',
-                'columnName' => 'postage_label_url',
+                'fieldName' => 'shipmentId',
+                'columnName' => 'shipment_id',
                 'type' => 'string',
                 'nullable' => true,
             ]);
         }
-        if (!$metadata->hasField('rates')) {
+        if (!$metadata->hasField('rateId')) {
             $metadata->mapField([
-                'fieldName' => 'rates',
-                'columnName' => 'rates',
+                'fieldName' => 'rateId',
+                'columnName' => 'rate_id',
+                'type' => 'string',
+                'nullable' => true,
+            ]);
+        }
+        /*if (!$metadata->hasField('postageLabelUrl')) {
+            $metadata->mapField([
+                'fieldName' => 'postageLabelUrl',
+                'columnName' => 'postage_label_url',
                 'type' => 'string',
                 'nullable' => true,
             ]);
@@ -65,6 +73,6 @@ final class EasyPostAwareListener implements EventSubscriber
                 'type' => 'string',
                 'nullable' => true,
             ]);
-        }
+        }*/
     }
 }

@@ -6,23 +6,35 @@ namespace Odiseo\SyliusEasyPostPlugin\Entity;
 
 trait EasyPostTrait
 {
-    protected ?string $rates = null;
+    protected ?string $shipmentId = null;
 
-    protected ?string $postageLabelUrl = null;
+    protected ?string $rateId = null;
 
-    protected ?string $trackingUrl = null;
+    //protected ?string $postageLabelUrl = null;
 
-    public function getRates(): ?string
+    //protected ?string $trackingUrl = null;
+
+    public function getShipmentId(): ?string
     {
-        return $this->rates;
+        return $this->shipmentId;
     }
 
-    public function setRates(?string $rates): void
+    public function setShipmentId(?string $shipmentId): void
     {
-        $this->rates = $rates;
+        $this->shipmentId = $shipmentId;
     }
 
-    public function getPostageLabelUrl(): ?string
+    public function getRateId(): ?string
+    {
+        return $this->rateId;
+    }
+
+    public function setRateId(?string $rateId): void
+    {
+        $this->rateId = $rateId;
+    }
+
+    /*public function getPostageLabelUrl(): ?string
     {
         return $this->postageLabelUrl;
     }
@@ -40,5 +52,5 @@ trait EasyPostTrait
     public function setTrackingUrl(?string $trackingUrl): void
     {
         $this->trackingUrl = $trackingUrl;
-    }
+    }*/
 }

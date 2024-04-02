@@ -1,0 +1,12 @@
+winzou_state_machine:
+    sylius_shipment:
+        callbacks:
+            after:
+                odiseo_sylius_easy_post_plugin_assign_rate:
+                    on: ["create"]
+                    do: ["@odiseo_sylius_easy_post_plugin.assigner.rate", "assignRate"]
+                    args: ["object"]
+                #odiseo_sylius_easy_post_plugin_buy_shipment:
+                #    on: ["ship"]
+                #    do: ["@odiseo_sylius_easy_post_plugin.shipment_buy", "buyShipment"]
+                #    args: ["object"]
