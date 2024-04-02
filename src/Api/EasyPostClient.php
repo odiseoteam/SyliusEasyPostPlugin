@@ -20,6 +20,8 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 
 class EasyPostClient
 {
+    private EasyPostConfigurationInterface $easyPostConfiguration;
+
     public function __construct(
         private EnabledEasyPostConfigurationProviderInterface $enabledEasyPostConfigurationProvider,
     ) {
@@ -30,9 +32,7 @@ class EasyPostClient
             );
         }
 
-        $apiKey = (string) $easyPostConfiguration->getApiKey();
-
-        EasyPost::setApiKey($apiKey);
+        $this->easyPostConfiguration = $easyPostConfiguration;
     }
 
     public function createShipment(OrderInterface $order): ?Shipment
@@ -44,6 +44,8 @@ class EasyPostClient
         }
 
         try {
+            $this->setApiKey();
+
             /** @var Shipment $shipment */
             $shipment = Shipment::create([
                 'from_address' => $this->getFromAddress(),
@@ -60,12 +62,27 @@ class EasyPostClient
     public function getShipment(string $id): ?Shipment
     {
         try {
+            $this->setApiKey();
+
             /** @var Shipment $shipment */
             $shipment = Shipment::retrieve($id);
 
             return $shipment;
         } catch (Error $exception) {
-            dd($exception);
+            return null;
+        }
+    }
+
+    public function getRate(string $id): ?Rate
+    {
+        try {
+            $this->setApiKey();
+
+            /** @var Rate $rate */
+            $rate = Rate::retrieve($id);
+
+            return $rate;
+        } catch (Error $exception) {
             return null;
         }
     }
@@ -89,23 +106,39 @@ class EasyPostClient
         return $shipment->rates;
     }
 
-    public function buyShipment(Rate $rate): Shipment
+    public function buyShipment(ShipmentInterface $subject): ?Shipment
     {
-        $shipmentId = $rate->shipment_id;
-        $shipment = $this->getShipment($shipmentId);
-
-        if (null === $shipment->selected_rate) {
-            $shipment->buy($rate);
+        if (!$subject instanceof EasyPostAwareInterface) {
+            return null;
         }
 
-        return $shipment;
-    }
+        $shipmentId = $subject->getShipmentId();
+        if (null === $shipmentId) {
+            return null;
+        }
 
-    public function getSelectedRate($id): Rate
-    {
-        $rate = Rate::retrieve($id);
+        $shipment = $this->getShipment($shipmentId);
+        if (null === $shipment) {
+            return null;
+        }
 
-        return $rate;
+        $rateId = $subject->getRateId();
+        if (null === $rateId) {
+            return null;
+        }
+
+        $rate = $this->getRate($rateId);
+        if (null === $rate) {
+            return null;
+        }
+
+        try {
+            $this->setApiKey();
+
+            return $shipment->buy($rate);
+        } catch (Error $exception) {
+            return null;
+        }
     }
 
     private function getParcel(Collection $items): array
@@ -131,20 +164,6 @@ class EasyPostClient
         ];
     }
 
-    private function getToAddress(AddressInterface $shippingAddress): array
-    {
-        return [
-            'name' => $shippingAddress->getFullName(),
-            'company' => $shippingAddress->getCompany(),
-            'street1' => $shippingAddress->getStreet(),
-            'city' => $shippingAddress->getCity(),
-            'country' => $shippingAddress->getCountryCode(),
-            'state' => $shippingAddress->getProvinceCode() ?? $shippingAddress->getProvinceName(),
-            'zip' => $shippingAddress->getPostcode(),
-            'phone' => $shippingAddress->getPhoneNumber(),
-        ];
-    }
-
     private function getFromAddress(): array
     {
         $configuration = $this->enabledEasyPostConfigurationProvider->getConfiguration();
@@ -164,5 +183,26 @@ class EasyPostClient
             'zip' => $senderData->getPostcode(),
             'phone' => $senderData->getPhoneNumber(),
         ];
+    }
+
+    private function getToAddress(AddressInterface $shippingAddress): array
+    {
+        return [
+            'name' => $shippingAddress->getFullName(),
+            'company' => $shippingAddress->getCompany(),
+            'street1' => $shippingAddress->getStreet(),
+            'city' => $shippingAddress->getCity(),
+            'country' => $shippingAddress->getCountryCode(),
+            'state' => $shippingAddress->getProvinceCode() ?? $shippingAddress->getProvinceName(),
+            'zip' => $shippingAddress->getPostcode(),
+            'phone' => $shippingAddress->getPhoneNumber(),
+        ];
+    }
+
+    private function setApiKey(): void
+    {
+        $apiKey = (string) $this->easyPostConfiguration->getApiKey();
+
+        EasyPost::setApiKey($apiKey);
     }
 }
