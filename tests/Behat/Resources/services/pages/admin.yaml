@@ -1,0 +1,2 @@
+imports:
+    - { resource: admin/easy_post_configuration.yaml }

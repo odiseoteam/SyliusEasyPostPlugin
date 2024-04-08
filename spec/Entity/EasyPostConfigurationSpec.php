@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusEasyPostPlugin\Entity;
 
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfiguration;
@@ -40,23 +42,9 @@ class EasyPostConfigurationSpec extends ObjectBehavior
 
     public function it_allows_access_via_properties(): void
     {
-        $this->setName('Configuration default');
-        $this->getName()->shouldReturn('Configuration default');
+        $this->setCode('configuration_default');
+        $this->getCode()->shouldReturn('configuration_default');
         $this->setApiKey('apiKey');
         $this->getApiKey()->shouldReturn('apiKey');
-        $this->setStreet1('Street 1');
-        $this->getStreet1()->shouldReturn('Street 1');
-        $this->setStreet2('Street 2');
-        $this->getStreet2()->shouldReturn('Street 2');
-        $this->setCity('City');
-        $this->getCity()->shouldReturn('City');
-        $this->setCountry('Country');
-        $this->getCountry()->shouldReturn('Country');
-        $this->setState('State');
-        $this->getState()->shouldReturn('State');
-        $this->setZip('123456');
-        $this->getZip()->shouldReturn('123456');
-        $this->setPhone('123456789');
-        $this->getPhone()->shouldReturn('123456789');
     }
 }

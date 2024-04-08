@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusEasyPostPlugin\Menu;
 
 use Knp\Menu\ItemInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
-class AdminMenuListener
+final class AdminMenuListener
 {
-    /**
-     * @param MenuBuilderEvent $event
-     */
     public function addAdminMenuItems(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
@@ -20,9 +19,9 @@ class AdminMenuListener
             $item = $menu;
         }
 
-        $item->addChild('easyPostConfig', ['route' => 'odiseo_sylius_easy_post_plugin_admin_easy_post_configuration_index'])
-            ->setLabel('odiseo_sylius_easy_post_plugin.menu.admin.easy_post_configurations')
-            ->setLabelAttribute('icon', 'trademark')
+        $item->addChild('easyPost', ['route' => 'odiseo_sylius_easy_post_plugin_admin_easy_post_configuration_index'])
+            ->setLabel('odiseo_sylius_easy_post_plugin.menu.admin.easy_post')
+            ->setLabelAttribute('icon', 'cog')
         ;
     }
 }

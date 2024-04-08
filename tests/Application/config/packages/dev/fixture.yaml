@@ -1,0 +1,153 @@
+sylius_fixtures:
+    suites:
+        default:
+            fixtures:
+                easy_post_configuration:
+                    options:
+                        custom:
+                            default:
+                                code: 'default'
+                                api_key: '%env(resolve:ODISEO_EASY_POST_API_KEY)%'
+                                sender_data:
+                                    company: 'Odiseo'
+                                    street: '118 2nd Street 4th Floor'
+                                    city: 'San Francisco'
+                                    country_code: 'US'
+                                    province_code: 'CA'
+                                    postcode: '94105'
+                                    phone_number: '415-456-7890'
+                                enabled: true
+
+                shipping_method:
+                    options:
+                        custom:
+                            usps_first:
+                                code: 'usps_first'
+                                name: 'USPS (First)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'First'
+                                            default_amount: 500
+                            usps_priority:
+                                code: 'usps_priority'
+                                name: 'USPS (Priority)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'Priority'
+                                            default_amount: 1000
+                            usps_express:
+                                code: 'usps_express'
+                                name: 'USPS (Express)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'Express'
+                                            default_amount: 1500
+                            usps_ground_advantage:
+                                code: 'usps_ground_advantage'
+                                name: 'USPS (Ground Advantage)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'GroundAdvantage'
+                                            default_amount: 2000
+                            usps_library_mail:
+                                code: 'usps_library_mail'
+                                name: 'USPS (Library Mail)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'LibraryMail'
+                                            default_amount: 2500
+                            usps_media_mail:
+                                code: 'usps_media_mail'
+                                name: 'USPS (Media Mail)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'MediaMail'
+                                            default_amount: 3000
+                            usps_first_class_mail_international:
+                                code: 'usps_first_class_mail_international'
+                                name: 'USPS (First Class Mail International)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'FirstClassMailInternational'
+                                            default_amount: 3500
+                            usps_first_class_package_international_service:
+                                code: 'usps_first_class_package_international_service'
+                                name: 'USPS (First Class Package International Service)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'FirstClassPackageInternationalService'
+                                            default_amount: 4000
+                            usps_priority_mail_international:
+                                code: 'usps_priority_mail_international'
+                                name: 'USPS (Priority Mail International)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'PriorityMailInternational'
+                                            default_amount: 4500
+                            usps_express_mail_international:
+                                code: 'usps_express_mail_international'
+                                name: 'USPS (Express Mail International)'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                calculator:
+                                    type: 'easy_post_rate'
+                                    configuration:
+                                        FASHION_WEB:
+                                            carrier: 'USPS'
+                                            service: 'ExpressMailInternational'
+                                            default_amount: 5000

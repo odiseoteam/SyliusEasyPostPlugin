@@ -1,2 +1,2 @@
-odiseo_sylius_vendor_plugin_admin_vendor:
+odiseo_sylius_easy_post_plugin_admin_easy_post_configuration:
     resource: admin/easy_post_configuration.yaml

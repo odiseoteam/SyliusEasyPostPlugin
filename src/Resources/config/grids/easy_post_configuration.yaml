@@ -8,9 +8,9 @@ sylius_grid:
             sorting:
                 createdAt: desc
             fields:
-                name:
+                code:
                     type: string
-                    label: sylius.ui.name
+                    label: sylius.ui.code
                     sortable: ~
                 enabled:
                     type: twig
@@ -25,9 +25,9 @@ sylius_grid:
                     options:
                         format: d-m-Y H:i
             filters:
-                name:
+                code:
                     type: string
-                    label: sylius.ui.name
+                    label: sylius.ui.code
                 enabled:
                     type: boolean
                     label: sylius.ui.enabled

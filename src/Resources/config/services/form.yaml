@@ -1,5 +1,16 @@
 services:
     odiseo_sylius_easy_post_plugin.form.type.easy_post_configuration:
-        class: Odiseo\SyliusEasyPostPlugin\Form\Type\Shipping\EasyPostConfigurationType
+        class: Odiseo\SyliusEasyPostPlugin\Form\Type\EasyPostConfigurationType
+        arguments:
+            - '%odiseo_sylius_easy_post_plugin.model.easy_post_configuration.class%'
+            - ['odiseo']
         tags:
-            - { name: form.type }
+            - { name: form.type, alias: odiseo_sylius_easy_post_configuration }
+
+    odiseo_sylius_easy_post_plugin.form.type.easy_post_configuration_sender_data:
+        class: Odiseo\SyliusEasyPostPlugin\Form\Type\EasyPostConfigurationSenderDataType
+        arguments:
+            - '%odiseo_sylius_easy_post_plugin.model.easy_post_configuration_sender_data.class%'
+            - ['odiseo']
+        tags:
+            - { name: form.type, alias: odiseo_sylius_easy_post_configuration_sender_data }

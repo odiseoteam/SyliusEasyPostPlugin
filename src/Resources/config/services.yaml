@@ -1,20 +1,9 @@
-
 imports:
+    - { resource: services/api.yaml }
+    - { resource: services/assigner.yaml }
+    - { resource: services/calculator.yaml }
     - { resource: services/event_listener.yaml }
+    - { resource: services/fixture.yaml }
     - { resource: services/form.yaml }
-
-parameters:
-    easy_post.apikey: '%env(EASY_POST_API_KEY)%'
-    odiseo_sylius_easy_post_plugin.service.easy_post.class: Odiseo\SyliusEasyPostPlugin\Service\EasyPostService
-    odiseo_sylius_easy_post_plugin.shipping_calculator.easy_post.class: Odiseo\SyliusEasyPostPlugin\Shipping\EasyPostCalculator
-
-
-services:
-    odiseo_sylius_easy_post_plugin.service.easy_post:
-        class: "%odiseo_sylius_easy_post_plugin.service.easy_post.class%"
-        arguments: ["%easy_post.apikey%", "@session"]
-    odiseo_sylius_easy_post_plugin.shipping_calculator.easy_post:
-        class: "%odiseo_sylius_easy_post_plugin.shipping_calculator.easy_post.class%"
-        arguments: ["@odiseo_sylius_easy_post_plugin.service.easy_post", "@session"]
-        tags:
-            - { name: "sylius.shipping_calculator", form_type: "Odiseo\\SyliusEasyPostPlugin\\Form\\Type\\Shipping\\EasyPostConfigurationType", calculator: "easy_post", label: "EasyPost" }
+    - { resource: services/generator.yaml }
+    - { resource: services/provider.yaml }

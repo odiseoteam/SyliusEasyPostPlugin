@@ -1,0 +1,5 @@
+services:
+    odiseo_sylius_easy_post_plugin.provider.enabled_easy_post_configuration:
+        class: Odiseo\SyliusEasyPostPlugin\Provider\EnabledEasyPostConfigurationProvider
+        arguments:
+            - '@odiseo_sylius_easy_post_plugin.repository.easy_post_configuration'

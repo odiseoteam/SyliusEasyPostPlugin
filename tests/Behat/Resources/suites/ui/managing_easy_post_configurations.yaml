@@ -1,0 +1,16 @@
+default:
+    suites:
+        ui_managing_easy_post_configurations:
+            contexts:
+                - sylius.behat.context.hook.doctrine_orm
+
+                - odiseo_sylius_easy_post_plugin.context.transform.easy_post_configuration
+
+                - sylius.behat.context.setup.channel
+                - sylius.behat.context.setup.admin_security
+                - odiseo_sylius_easy_post_plugin.context.setup.easy_post_configuration
+
+                - odiseo_sylius_easy_post_plugin.context.ui.admin.managing_easy_post_configurations
+                - sylius.behat.context.ui.admin.notification
+            filters:
+                tags: "@managing_easy_post_configurations && @ui"

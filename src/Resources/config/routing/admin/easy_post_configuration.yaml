@@ -2,15 +2,16 @@ odiseo_sylius_easy_post_plugin_admin_easy_post_configuration:
     resource: |
         alias: odiseo_sylius_easy_post_plugin.easy_post_configuration
         section: admin
-        templates: SyliusAdminBundle:Crud
+        templates: "@SyliusAdmin/Crud"
         except: ['show']
         redirect: index
         grid: odiseo_sylius_easy_post_plugin_easy_post_configuration
         permission: true
         vars:
             all:
+                subheader: odiseo_sylius_easy_post_plugin.ui.manage_configurations
                 templates:
                     form: '@OdiseoSyliusEasyPostPlugin/Admin/EasyPostConfiguration/_form.html.twig'
             index:
-                icon: trademark
+                icon: cog
     type: sylius.resource

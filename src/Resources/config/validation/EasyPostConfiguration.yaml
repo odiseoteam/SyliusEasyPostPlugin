@@ -1,0 +1,25 @@
+Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfiguration:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code]
+            message: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.code.unique'
+            groups: ['odiseo']
+    properties:
+        code:
+            - NotBlank:
+                message: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.code.not_blank'
+                groups: ['odiseo']
+            - Regex:
+                message: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.code.regex'
+                pattern: /^[\w-]*$/
+                groups: ['odiseo']
+        apiKey:
+            - NotBlank:
+                message: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.api_key.not_blank'
+                groups: ['odiseo']
+            - Length:
+                min: 2
+                max: 250
+                minMessage: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.api_key.min_length'
+                maxMessage: 'odiseo_sylius_easy_post_plugin.easy_post_configuration.api_key.max_length'
+                groups: ['odiseo']

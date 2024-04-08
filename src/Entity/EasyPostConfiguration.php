@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusEasyPostPlugin\Entity;
 
 use Sylius\Component\Resource\Model\TimestampableTrait;
@@ -10,54 +12,32 @@ class EasyPostConfiguration implements EasyPostConfigurationInterface
     use TimestampableTrait;
     use ToggleableTrait;
 
-    /** @var string */
-    private $id;
+    protected ?int $id = null;
 
-    /** @var string */
-    private $name;
+    protected ?string $code = null;
 
-    /** @var string */
-    private $apiKey;
+    protected ?string $apiKey = null;
 
-    /** @var string */
-    private $street1;
+    protected ?EasyPostConfigurationSenderDataInterface $senderData = null;
 
-    /** @var string */
-    private $street2;
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
-    /** @var string */
-    private $city;
-
-    /** @var string */
-    private $country;
-
-    /** @var string */
-    private $state;
-
-    /** @var string */
-    private $zip;
-
-    /** @var string */
-    private $phone;
-
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setName(?string $name): void
+    public function getCode(): ?string
     {
-        $this->name = $name;
+        return $this->code;
     }
 
-    public function getName(): ?string
+    public function setCode(?string $code): void
     {
-        return $this->name;
-    }
-
-    public function setApiKey(?string $apiKey): void
-    {
-        $this->apiKey = $apiKey;
+        $this->code = $code;
     }
 
     public function getApiKey(): ?string
@@ -65,73 +45,18 @@ class EasyPostConfiguration implements EasyPostConfigurationInterface
         return $this->apiKey;
     }
 
-    public function setStreet1(?string $street1): void
+    public function setApiKey(?string $apiKey): void
     {
-        $this->street1 = $street1;
+        $this->apiKey = $apiKey;
     }
 
-    public function getStreet1(): ?string
+    public function getSenderData(): ?EasyPostConfigurationSenderDataInterface
     {
-        return $this->street1;
+        return $this->senderData;
     }
 
-    public function setStreet2(?string $street2): void
+    public function setSenderData(?EasyPostConfigurationSenderDataInterface $senderData): void
     {
-        $this->street2 = $street2;
-    }
-
-    public function getStreet2(): ?string
-    {
-        return $this->street2;
-    }
-
-    public function setCity(?string $city): void
-    {
-        $this->city = $city;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCountry(?string $country): void
-    {
-        $this->country = $country;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setState(?string $state): void
-    {
-        $this->state = $state;
-    }
-
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setZip(?string $zip): void
-    {
-        $this->zip = $zip;
-    }
-
-    public function getZip(): ?string
-    {
-        return $this->zip;
-    }
-
-    public function setPhone(?string $phone): void
-    {
-        $this->phone = $phone;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
+        $this->senderData = $senderData;
     }
 }

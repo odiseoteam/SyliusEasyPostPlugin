@@ -1,7 +1,30 @@
 odiseo_sylius_easy_post_plugin:
     ui:
         easy_post_configurations: Easy Post configurations
+        edit_easy_post_configuration: Edit Easy Post configuration
+        new_easy_post_configuration: New Easy Post configuration
+        manage_configurations: Manage configurations
     menu:
         admin:
-            easy_post_configurations: Easy Post configurations
+            easy_post: Easy post
     form:
+        easy_post_configuration:
+            api_key: Api key
+            sender_data: Sender data
+        easy_post_configuration_sender_data:
+            city: City
+            company: Company
+            country: Country
+            first_name: First name
+            last_name: Last name
+            phone_number: Phone number
+            postcode: Postcode
+            street: Street address
+            province_name: Province name
+            province_code: Province code
+        shipping_calculator:
+            easy_post_rate_configuration:
+                label: Easy Post rate
+                carrier: Carrier
+                service: Service
+                default_amount: Default amount

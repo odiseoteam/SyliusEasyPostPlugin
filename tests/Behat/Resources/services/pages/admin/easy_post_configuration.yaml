@@ -1,0 +1,14 @@
+services:
+    odiseo_sylius_easy_post_plugin.page.admin.easy_post_configuration.index_page:
+        class: Tests\Odiseo\SyliusEasyPostPlugin\Behat\Page\Admin\EasyPostConfiguration\IndexPage
+        parent: sylius.behat.page.admin.crud.index
+        public: false
+        arguments:
+            - 'odiseo_sylius_easy_post_plugin_admin_easy_post_configuration_index'
+
+    odiseo_sylius_easy_post_plugin.page.admin.easy_post_configuration.create_page:
+        class: Tests\Odiseo\SyliusEasyPostPlugin\Behat\Page\Admin\EasyPostConfiguration\CreatePage
+        parent: sylius.behat.page.admin.crud.create
+        public: false
+        arguments:
+            - 'odiseo_sylius_easy_post_plugin_admin_easy_post_configuration_create'

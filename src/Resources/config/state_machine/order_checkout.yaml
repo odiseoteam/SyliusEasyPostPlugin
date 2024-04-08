@@ -1,0 +1,8 @@
+winzou_state_machine:
+    sylius_order_checkout:
+        callbacks:
+            after:
+                odiseo_sylius_easy_post_plugin_assign_shipment:
+                    on: ["address"]
+                    do: ["@odiseo_sylius_easy_post_plugin.assigner.shipment", "assignShipment"]
+                    args: ["object"]

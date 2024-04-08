@@ -1,11 +1,30 @@
-odiseo_sylius_vendor_plugin:
+odiseo_sylius_easy_post_plugin:
     ui:
-        vendors: Vendedores
-        edit_vendor: Editar vendedor
-        new_vendor: Nuevo vendedor
         easy_post_configurations: Configuraciones de Easy Post
+        edit_easy_post_configuration: Editar configuración de Easy Post
+        new_easy_post_configuration: Nueva configuración de Easy Post
+        manage_configurations: Administrar configuraciones
     menu:
         admin:
-            easy_post_configurations: Configuraciones de Easy Post
+            easy_post: Easy post
     form:
-
+        easy_post_configuration:
+            api_key: Llave de API
+            sender_data: Datos del remitente
+        easy_post_configuration_sender_data:
+            city: Ciudad
+            company: Empresa
+            country: País
+            first_name: Nombre
+            last_name: Apellidos
+            phone_number: Teléfono
+            postcode: Código postal
+            street: Nombre de la calle
+            province_name: Nombre de provincia
+            province_code: Código de provincia
+        shipping_calculator:
+            easy_post_rate_configuration:
+                label: Tarifa Easy Post
+                carrier: Transportador
+                service: Servicio
+                default_amount: Monto predeterminado

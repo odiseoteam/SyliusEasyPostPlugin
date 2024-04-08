@@ -1,0 +1,7 @@
+
+services:
+    odiseo_sylius_easy_post_plugin.generator.shipment_tracking:
+        class: Odiseo\SyliusEasyPostPlugin\Generator\ShipmentTrackingGenerator
+        public: true
+        arguments:
+            - '@odiseo_sylius_easy_post_plugin.api.easy_post_client'
