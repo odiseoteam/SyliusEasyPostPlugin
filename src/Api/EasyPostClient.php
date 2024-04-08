@@ -20,19 +20,12 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 
 class EasyPostClient
 {
-    private EasyPostConfigurationInterface $easyPostConfiguration;
+    private ?EasyPostConfigurationInterface $easyPostConfiguration;
 
     public function __construct(
         private EnabledEasyPostConfigurationProviderInterface $enabledEasyPostConfigurationProvider,
     ) {
-        $easyPostConfiguration = $this->enabledEasyPostConfigurationProvider->getConfiguration();
-        if (!$easyPostConfiguration instanceof EasyPostConfigurationInterface) {
-            throw new Error(
-                sprintf('The "%s" has not been found', EasyPostConfigurationInterface::class),
-            );
-        }
-
-        $this->easyPostConfiguration = $easyPostConfiguration;
+        $this->easyPostConfiguration = $this->enabledEasyPostConfigurationProvider->getConfiguration();
     }
 
     public function createShipment(OrderInterface $order): ?Shipment
@@ -168,10 +161,13 @@ class EasyPostClient
 
     private function getFromAddress(): array
     {
-        /** @var EasyPostConfigurationInterface $configuration */
-        $configuration = $this->enabledEasyPostConfigurationProvider->getConfiguration();
+        if (!$this->easyPostConfiguration instanceof EasyPostConfigurationInterface) {
+            throw new Error(
+                sprintf('The "%s" has not been found', EasyPostConfigurationInterface::class),
+            );
+        }
 
-        $senderData = $configuration->getSenderData();
+        $senderData = $this->easyPostConfiguration->getSenderData();
         if (!$senderData instanceof EasyPostConfigurationSenderDataInterface) {
             return [];
         }
@@ -204,6 +200,12 @@ class EasyPostClient
 
     private function setApiKey(): void
     {
+        if (!$this->easyPostConfiguration instanceof EasyPostConfigurationInterface) {
+            throw new Error(
+                sprintf('The "%s" has not been found', EasyPostConfigurationInterface::class),
+            );
+        }
+
         $apiKey = (string) $this->easyPostConfiguration->getApiKey();
 
         EasyPost::setApiKey($apiKey);
