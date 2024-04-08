@@ -19,22 +19,29 @@ final class EasyPostRateConfigurationType extends AbstractType
     {
         $builder
             ->add('carrier', TextType::class, [
+                // phpcs:ignore
                 'label' => 'odiseo_sylius_easy_post_plugin.form.shipping_calculator.easy_post_rate_configuration.carrier',
                 'constraints' => [
                     new NotBlank(['groups' => ['odiseo']]),
                 ],
             ])
             ->add('service', TextType::class, [
+                // phpcs:ignore
                 'label' => 'odiseo_sylius_easy_post_plugin.form.shipping_calculator.easy_post_rate_configuration.service',
                 'constraints' => [
                     new NotBlank(['groups' => ['odiseo']]),
                 ],
             ])
             ->add('default_amount', MoneyType::class, [
+                // phpcs:ignore
                 'label' => 'odiseo_sylius_easy_post_plugin.form.shipping_calculator.easy_post_rate_configuration.default_amount',
                 'constraints' => [
                     new NotBlank(['groups' => ['odiseo']]),
-                    new Range(['min' => 0, 'minMessage' => 'sylius.shipping_method.calculator.min', 'groups' => ['odiseo']]),
+                    new Range([
+                        'min' => 0,
+                        'minMessage' => 'sylius.shipping_method.calculator.min',
+                        'groups' => ['odiseo'],
+                    ]),
                     new Type(['type' => 'integer', 'groups' => ['odiseo']]),
                 ],
                 'currency' => $options['currency'],

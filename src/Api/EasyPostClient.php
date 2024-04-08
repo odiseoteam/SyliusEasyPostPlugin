@@ -141,6 +141,9 @@ class EasyPostClient
         }
     }
 
+    /**
+     * @psalm-param Collection<array-key, OrderItemInterface> $items
+     */
     private function getParcel(Collection $items): array
     {
         $length = 0;
@@ -148,12 +151,11 @@ class EasyPostClient
         $height = 0;
         $weight = 0;
 
-        /** @var OrderItemInterface $item */
         foreach ($items as $item) {
-            $length += $item->getVariant()->getDepth();
-            $width += $item->getVariant()->getWidth();
-            $height += $item->getVariant()->getHeight();
-            $weight += $item->getVariant()->getWeight();
+            $length += (float) $item->getVariant()?->getDepth();
+            $width += (float) $item->getVariant()?->getWidth();
+            $height += (float) $item->getVariant()?->getHeight();
+            $weight += (float) $item->getVariant()?->getWeight();
         }
 
         return [
@@ -166,6 +168,7 @@ class EasyPostClient
 
     private function getFromAddress(): array
     {
+        /** @var EasyPostConfigurationInterface $configuration */
         $configuration = $this->enabledEasyPostConfigurationProvider->getConfiguration();
 
         $senderData = $configuration->getSenderData();

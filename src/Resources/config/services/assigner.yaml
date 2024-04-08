@@ -5,8 +5,8 @@ services:
         arguments:
             - '@odiseo_sylius_easy_post_plugin.api.easy_post_client'
 
-    odiseo_sylius_easy_post_plugin.assigner.rate:
-        class: Odiseo\SyliusEasyPostPlugin\Assigner\RateAssigner
+    odiseo_sylius_easy_post_plugin.assigner.shipment_rate:
+        class: Odiseo\SyliusEasyPostPlugin\Assigner\ShipmentRateAssigner
         public: true
         arguments:
             - '@odiseo_sylius_easy_post_plugin.api.easy_post_client'

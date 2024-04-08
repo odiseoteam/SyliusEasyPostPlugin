@@ -17,7 +17,7 @@ final class ChannelBasedEasyPostRateConfigurationType extends AbstractType
             'entry_type' => EasyPostRateConfigurationType::class,
             'entry_options' => fn (ChannelInterface $channel): array => [
                 'label' => $channel->getName(),
-                'currency' => $channel->getBaseCurrency()->getCode(),
+                'currency' => $channel->getBaseCurrency()?->getCode(),
             ],
         ]);
     }

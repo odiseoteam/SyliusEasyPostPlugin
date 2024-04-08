@@ -7,9 +7,11 @@ namespace Odiseo\SyliusEasyPostPlugin\Assigner;
 use EasyPost\Rate;
 use Odiseo\SyliusEasyPostPlugin\Api\EasyPostClient;
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostAwareInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 
-final class RateAssigner implements RateAssignerInterface
+final class ShipmentRateAssigner implements ShipmentRateAssignerInterface
 {
     public function __construct(
         private EasyPostClient $easyPostClient,
@@ -22,12 +24,14 @@ final class RateAssigner implements RateAssignerInterface
             return;
         }
 
+        /** @var OrderInterface $order */
         $order = $shipment->getOrder();
+        /** @var ChannelInterface $channel */
         $channel = $order->getChannel();
 
         $channelCode = $channel->getCode();
 
-        $configuration = $shipment->getMethod()->getConfiguration();
+        $configuration = $shipment->getMethod()?->getConfiguration();
 
         if (!isset($configuration[$channelCode])) {
             return;
@@ -37,7 +41,10 @@ final class RateAssigner implements RateAssignerInterface
 
         /** @var Rate $rate */
         foreach ($rates as $rate) {
-            if ($rate->carrier === $configuration[$channelCode]['carrier'] && $rate->service === $configuration[$channelCode]['service']) {
+            if (
+                $rate->carrier === $configuration[$channelCode]['carrier'] &&
+                $rate->service === $configuration[$channelCode]['service']
+            ) {
                 $shipment->setRateId($rate->id);
 
                 break;

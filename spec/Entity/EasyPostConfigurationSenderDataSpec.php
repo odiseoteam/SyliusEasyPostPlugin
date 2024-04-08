@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusEasyPostPlugin\Entity;
 
 use Odiseo\SyliusEasyPostPlugin\Entity\EasyPostConfigurationSenderData;

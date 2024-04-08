@@ -6,7 +6,7 @@ namespace Odiseo\SyliusEasyPostPlugin\Assigner;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
 
-interface RateAssignerInterface
+interface ShipmentRateAssignerInterface
 {
     public function assignRate(ShipmentInterface $shipment): void;
 }

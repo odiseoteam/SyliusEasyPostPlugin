@@ -15,10 +15,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class EasyPostConfigurationExampleFactory implements ExampleFactoryInterface
 {
     protected FakerGenerator $faker;
+
     protected OptionsResolver $optionsResolver;
 
     public function __construct(
-        protected FactoryInterface $easyPostConfigurationFactory
+        protected FactoryInterface $easyPostConfigurationFactory,
     ) {
         $this->faker = Factory::create();
         $this->optionsResolver = new OptionsResolver();
