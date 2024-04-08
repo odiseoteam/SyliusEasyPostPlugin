@@ -4,7 +4,7 @@ winzou_state_machine:
             after:
                 odiseo_sylius_easy_post_plugin_assign_rate:
                     on: ["create"]
-                    do: ["@odiseo_sylius_easy_post_plugin.assigner.rate", "assignRate"]
+                    do: ["@odiseo_sylius_easy_post_plugin.assigner.shipment_rate", "assignRate"]
                     args: ["object"]
                 odiseo_sylius_easy_post_plugin_create_shipment_tracking:
                     on: ["ship"]
